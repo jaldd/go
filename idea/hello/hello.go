@@ -7,7 +7,7 @@ import (
 
 func main() {
 
-	fmt.Println("hello")
+	//fmt.Println("hello")
 
 	//p := true
 	//a := 3
@@ -141,36 +141,91 @@ func main() {
 	//fmt.Println("c 地址", c)
 	//fmt.Println("c1地址", c1)
 
-	var a interface{}
-	a = 2
-	fmt.Printf("%T,%v\n", a, a)
+	//interface
+	//var a interface{}
+	//a = 2
+	//fmt.Printf("%T,%v\n", a, a)
+	//
+	//print(a)
+	//print(3)
+	//print("ldd")
+	//
+	//v, ok := a.(int)
+	//if ok {
+	//	fmt.Printf("a:%d\n", v)
+	//}
+	//
+	//switch a.(type) {
+	//case int:
+	//	fmt.Println("int")
+	//case string:
+	//	fmt.Println("string")
+	//default:
+	//	fmt.Println("...")
+	//}
+	//
+	//t := reflect.TypeOf(a)
+	//fmt.Printf("a type:%s", t.Name())
 
-	print(a)
-	print(3)
-	print("ldd")
+	var a A
+	a = &A1Instance{Data: "hello"}
+	a.Println()
 
-	v, ok := a.(int)
-	if ok {
-		fmt.Printf("a:%d\n", v)
+	if v, ok := a.(*A1Instance); ok {
+		fmt.Println(v)
+	} else {
+		fmt.Println("not a A1")
+	}
+	fmt.Println(reflect.TypeOf(a).String())
+
+	a = &A2Instance{Data: "hi"}
+	a.Println()
+	if v, ok := a.(*A1Instance); ok {
+		fmt.Println(v)
+	} else {
+		fmt.Println(reflect.TypeOf(a).String())
 	}
 
-	switch a.(type) {
-	case int:
-		fmt.Println("int")
-	case string:
-		fmt.Println("string")
-	default:
-		fmt.Println("...")
-	}
-
-	t := reflect.TypeOf(a)
-	fmt.Printf("a type:%s", t.Name())
+	var b B
+	b = &A2Instance{Data: "hello"}
+	b.Println()
 }
 
 func print(i interface{}) {
 
 	fmt.Println(i)
 }
+
 func sum(h int64, i int64) int64 {
 	return h + i
+}
+
+type A interface {
+	Println()
+}
+
+type B interface {
+	Println()
+	Printf() int
+}
+
+type A1Instance struct {
+	Data string
+}
+
+func (a1 *A1Instance) Println() {
+	fmt.Println("a1:", a1.Data)
+}
+
+type A2Instance struct {
+	Data string
+}
+
+func (a2 *A2Instance) Println() {
+	fmt.Println("a2:", a2.Data)
+}
+
+func (a2 *A2Instance) Printf() int {
+	fmt.Println("a2:", a2.Data)
+	return 0
 }
