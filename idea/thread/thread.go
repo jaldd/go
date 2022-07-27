@@ -37,7 +37,7 @@ func Send(ch chan int) {
 
 func main() {
 
-	ch := make(chan int)
+	//ch := make(chan int)
 	//go Hu(ch)
 	//fmt.Println("start hu")
 	////for {
@@ -46,9 +46,22 @@ func main() {
 	//v := <-ch
 	//fmt.Println("receive:", v)
 
-	go Receive(ch)
-	go Send(ch)
-	for {
-		time.Sleep(1 * time.Second)
+	//go Receive(ch)
+	//go Send(ch)
+	//for {
+	//	time.Sleep(1 * time.Second)
+	//}
+
+	buffedChan := make(chan int, 2)
+	buffedChan <- 2
+	buffedChan <- 3
+
+	close(buffedChan)
+
+	for i := range buffedChan {
+		fmt.Println(i)
+		//if i == 3 {
+		//	break
+		//}
 	}
 }
