@@ -17,8 +17,8 @@ func adder() func(int) int {
 
 func fibonacci() func() int {
 
-	var x int = 0
-	var y int = 1
+	var x = 0
+	var y = 1
 	return func() int {
 		z := x + y
 		x = y
